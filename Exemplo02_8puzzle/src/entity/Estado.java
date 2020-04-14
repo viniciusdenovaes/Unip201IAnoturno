@@ -3,14 +3,22 @@ package entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import solver.HeuriticasDeAvaliacao;
+
 public class Estado {
 	
 	private Tabuleiro tabuleiro;
 	private List<Acao> acoes;
+	private int nivel;
 	
 	public Estado(Tabuleiro aTabuleiro) {
 		this.tabuleiro = aTabuleiro;
 		acoes = new ArrayList<>();
+		nivel = 0;
+	}
+	
+	public int get(int i, int j) {
+		return this.tabuleiro.get(i, j);
 	}
 	
 	public boolean isObjetivo() {
@@ -27,6 +35,11 @@ public class Estado {
 	}
 	
 	public void aplicarAcao(Acao acao) {
+		
+		addAcaoAoCaminho(acao);
+		
+		nivel++;
+		
 		Coordenada p0 = this.tabuleiro.posicaoDoZero();
 		int i = p0.i;
 		int j = p0.j;
@@ -70,17 +83,39 @@ public class Estado {
 		return filhos;
 	}
 	
+	private void addAcaoAoCaminho(Acao acao) {
+		this.acoes.add(acao);
+	}
+	
+	public int getNivel() {
+		return nivel;
+	}
+	
 	
 	
 	public Estado deepCopy() {
 		Estado novo = new Estado(this.tabuleiro.deepCopy());
+		for(Acao acao: acoes) {
+			novo.acoes.add(acao);
+		}
+		novo.nivel = this.nivel;
 		return novo;
 	}
+	
 	@Override
 	public String toString() {
 		String res = "";
-		res += "Estado: \n";
+		res += "Estado (nivel " + this.nivel + "): \n";
 		res += this.tabuleiro;
+		res += "Caminho de Acoes ate este estado: ";
+		for(Acao acao: this.acoes) {
+			res += acao + ", ";
+		}
+		res += ".\n";
+		res += "Heuristacas de avaliacao: \n";
+		res += "\t pecasForaDoLugar: " 
+				+ HeuriticasDeAvaliacao.pecasForaDoLugar(this);
+				
 				
 		return res;
 	}
