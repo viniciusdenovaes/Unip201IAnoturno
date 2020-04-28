@@ -2,14 +2,26 @@ package entity;
 
 public class Vertice implements Comparable<Vertice>{
 	
+	private int id;
 	private String nome;
+	private Coordenada coord;
 	
-	public Vertice(String aNome) {
+	public Vertice(int aId, String aNome, Coordenada aCoord) {
+		this.id = aId;
 		this.nome = aNome;
+		this.coord = aCoord;
+	}
+	
+	public int getId() {
+		return this.id;
 	}
 	
 	public String getNome() {
 		return this.nome;
+	}
+	
+	public Coordenada getCorrdenada() {
+		return this.coord;
 	}
 	
 	@Override
@@ -37,7 +49,7 @@ public class Vertice implements Comparable<Vertice>{
 
 	@Override
 	public String toString() {
-		return "vertice " + nome;
+		return "vertice("+id+") " + nome + " (" + coord.x + ", " + coord.y + ")";
 	}
 
 	

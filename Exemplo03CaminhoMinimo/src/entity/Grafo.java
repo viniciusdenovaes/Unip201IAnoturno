@@ -1,27 +1,54 @@
 package entity;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class Grafo {
 	
-	Map<Vertice, Coordenada> vertices;
-	Map<Vertice, List<Aresta>> arestas;
+	private Map<Integer, Vertice> vertices;
+	private Map<String, Vertice> nomes;
+	private int size;
+	private double[][] adj;
 	
-	public Grafo() {
+	public Grafo(int aSize) {
+		
 		this.vertices = new TreeMap<>();
-		this.arestas = new TreeMap<>();
+		this.nomes = new TreeMap<>();
+		this.size = aSize;
+		adj = new double[size][size];
+		for(int i=0; i<size; i++) {
+			for(int j=0; j<size; j++) {
+				adj[i][j] = -1.0;
+			}
+		}
 	}
 	
-	public void addVertice(Vertice v, Coordenada c) {
-		vertices.put(v, c);
-		arestas.put(v, new ArrayList<>());
+	public double getAdj(int i, int j){
+		return adj[i][j];
 	}
 	
-	public void addAresta(Vertice v, Aresta a) {
-		(arestas.get(v)).add(a);
+	public void addVertice(Vertice v) {
+		vertices.put(v.getId(), v);
+		nomes.put(v.getNome(), v);
+	}
+	
+	public Vertice getVertice(String nome) {
+		return this.nomes.get(nome);
+	}
+	
+	public Collection<Vertice> getVertices(){
+		return vertices.values();
+	}
+	
+	public boolean adjacentes(Vertice v1, Vertice v2) {
+		return adj[v1.getId()][v2.getId()] > 0;
+	}
+	
+	public void addAresta(Vertice v1, Vertice v2, double valor) {
+		adj[v1.getId()][v2.getId()] = valor;
+		adj[v2.getId()][v1.getId()] = valor;
 	}
 
 	@Override
@@ -29,10 +56,12 @@ public class Grafo {
 		
 		String res = "";
 		
-		for(Vertice v: vertices.keySet()) {
-			res += v + " " + vertices.get(v) + "\n";
-			for(Aresta a: arestas.get(v)) {
-				res += "\t" + a + "\n"; 
+		for(int i=0; i<size; i++) {
+			res += vertices.get(i) + "\n";
+			for(int j=0; j<size; j++) {
+				if(adj[i][j]>0 && i!=j) {
+					res += "\t" + "para o vertice " + vertices.get(j).getNome() + ", valor " + adj[i][j] + "\n";
+				}
 			}
 		}
 		res += "\n";
