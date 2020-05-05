@@ -50,6 +50,17 @@ public class Grafo {
 		adj[v1.getId()][v2.getId()] = valor;
 		adj[v2.getId()][v1.getId()] = valor;
 	}
+	
+	public static double distanciaVertice(Vertice v1, Vertice v2) {
+		return distancia(v1.getCorrdenada(), v2.getCorrdenada());
+	}
+	
+	public static double distancia(Coordenada c1, Coordenada c2) {
+		double res; 
+		res = Math.pow((c1.x - c2.x), 2) + Math.pow((c1.y - c2.y), 2);
+		res = Math.sqrt(res);
+		return res;
+	}
 
 	@Override
 	public String toString() {

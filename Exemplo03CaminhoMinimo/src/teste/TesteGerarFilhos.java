@@ -15,7 +15,7 @@ public class TesteGerarFilhos {
 		Grafo g = dao.getInstance();
 		
 		Caminho c = new Caminho(g, g.getVertice("A"));
-		Estado e = new Estado(g, c);
+		Estado e = new Estado(g, c, null);
 		
 		System.out.println(e);
 		

@@ -15,6 +15,7 @@ public class Solver {
 	Grafo grafo;
 	Vertice origem, destino;
 	Caminho solucao;
+	int iteracoes = 0;
 	
 	public Solver(Grafo aGrafo, Vertice aOrigem, Vertice aDestino) {
 		this.grafo = aGrafo;
@@ -27,12 +28,13 @@ public class Solver {
 		return c.getFinal().equals(destino);
 	}
 	
-	public void solve() {
-		Estado inicial = new Estado(grafo, new Caminho(grafo, origem));
-		EstruturaDeEstadosAbertos eea = new Fila();
+	public void solve(EstruturaDeEstadosAbertos eea) {
+		this.iteracoes = 0;
+		Estado inicial = new Estado(grafo, new Caminho(grafo, origem), destino);
 		eea.push(inicial);
 		while(eea.size()>0) {
 			Estado e = eea.pop();
+			this.iteracoes++;
 			if(isObjetivo(e)) {
 				solucao = e.getCaminho();
 				return;
@@ -46,6 +48,10 @@ public class Solver {
 	
 	public Caminho getSolution() {
 		return solucao;
+	}
+	
+	public int getIteracoes() {
+		return this.iteracoes;
 	}
 	
 	

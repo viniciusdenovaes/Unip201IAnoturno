@@ -7,14 +7,20 @@ public class Estado {
 	
 	private Grafo grafo;
 	private Caminho caminho;
+	private Vertice destino;
 	
-	public Estado(Grafo aGrafo, Caminho aCaminho) {
+	public Estado(Grafo aGrafo, Caminho aCaminho, Vertice aDestino) {
 		this.grafo = aGrafo;
 		caminho = aCaminho;
+		this.destino = aDestino;
 	}
 	
 	public Caminho getCaminho() {
 		return this.caminho;
+	}
+	
+	public double getCustoCaminho() {
+		return this.getCaminho().getCusto();
 	}
 	
 	public List<Estado> geraFilhos(){
@@ -34,9 +40,13 @@ public class Estado {
 		return filhos;
 	}
 	
+	public Vertice getDestino() {
+		return this.destino;
+	}
+	
 	public Estado deepCopy() {
 		Caminho novoCaminho = this.caminho.deepCopy();
-		Estado novo = new Estado(grafo, novoCaminho);
+		Estado novo = new Estado(grafo, novoCaminho, this.destino);
 		return novo;
 	}
 	
