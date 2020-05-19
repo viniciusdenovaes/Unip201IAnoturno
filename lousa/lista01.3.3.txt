@@ -1,0 +1,63 @@
+Problema: 
+3 jarros, um com no máximo 12, outro com 8, outro com 3
+Podemos encher completamente, ou esvaziar completamente cada jarro.
+Podemos passar água de um jarro para o outro até esvaziar um jarro, ou completar outro.
+
+N = 
+
+Uma tupla (x_1, x_2, x_3), (onde o valor x_i representa o quanto que o jarro i tem de água).
+
+Defina três valores 
+M_1 = 12, 
+M_2 = 8, 
+M_3 = 3
+
+Para cada i = 1,2,3; x_i é um número inteiro, tal que
+0 <= x_i <= M_i
+
+
+I = (0,0,0)
+
+
+O = { (1,0,0), (0,1,0), (0,0,1) }
+
+
+A = Dado uma tupla (x_1, x_2, x_3), 
+podemos gerar estados seguindo as seguintes regras:
+1 - Podemos gerar os estados (encher os jarros) 
+(M_1, x_2, x_3)
+(x_1, M_2, x_3)
+(x_1, x_2, M_3)
+
+2 - Podemos gerar os estados (esvaziar os jarros)
+(  0, x_2, x_3)
+(x_1,   0, x_3)
+(x_1, x_2, 0)
+
+3 - 
+Pegue o estado (x_1, x_2, x_3)
+Para cada combinação de i=1,2,3 e j=1,2,3, com i!=j
+(Vamos passar o conteúdo de i para j)
+Seja 
+valor_esvaziar = x_i
+valor_encher = M_j-x_j
+valor_passado = min(valor_esvaziar, valor_encher)
+substitua x_i por x_i-valor_passado,
+substitua x_j por x_j+valor_passado,
+
+
+Solução: O conjunto de ações de um caminho do estado inicial até qualquer estado objetivo.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

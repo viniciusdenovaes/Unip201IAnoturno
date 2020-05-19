@@ -1,0 +1,37 @@
+Problema: carro, em cada tempo t_i deve escolher 
+Manter a velocidade
+Acelerar
+Desacelerar
+
+Carro estar no ponto D, com velocidade H
+
+Supondo um instância com valores de 
+D para o tamnho do caminho e 
+H para o tamanho do buraco
+
+N:
+Uma tupla (p, v, t)
+p valor inteiro (representando o ponto do carro)
+v valor inteiro (representando a velocidade do carro)
+t valor inteiro positivo (representando o tempo)
+
+I = {(0, 0, 0)} (p = 0, v = 0)
+
+O = {(D, H, t_x), para qualquer valor t_x} (p = D, v = H)
+
+A = 
+Dado um estado (p, v, t) temos três ações:
+M - Gera o estado (p+v, v, t+1)
+A - Gera o estado (p+v+1, v+1, t+1)
+D - Gera o estado (p+v-1, v-1, t+1)
+
+S = O caminho de ações que leva do estado inicial ao estado final
+
+
+
+
+
+
+
+
+
